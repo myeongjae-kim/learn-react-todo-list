@@ -14,6 +14,10 @@ export interface ITodoListProps {
 }
 
 class TodoList extends React.Component<ITodoListProps, {}> {
+  shouldComponentUpdate(nextProps: Readonly<ITodoListProps>): boolean {
+    return this.props.todos !== nextProps.todos;
+  }
+
   render() {
     const { todos, onToggle, onRemove } = this.props;
     const todoList = todos.map(

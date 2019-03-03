@@ -11,6 +11,10 @@ export interface ITodoItemProps {
 }
 
 class TodoItem extends React.Component<ITodoItemProps, {}> {
+  shouldComponentUpdate(nextProps: Readonly<ITodoItemProps>): boolean {
+    return this.props.done !== nextProps.done;
+  }
+
   render() {
     /* 비구조화 할당을 이용하여 this.props 안에 있는
        done, children, onToggle, onRemove 레퍼런스를 만들어 주었습니다
