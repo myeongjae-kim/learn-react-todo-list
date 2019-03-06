@@ -10,7 +10,7 @@ export interface ITodoItemProps {
   onRemove: () => void
 }
 
-class TodoItem extends React.Component<ITodoItemProps, {}> {
+class TodoItem extends React.Component<ITodoItemProps> {
   shouldComponentUpdate(nextProps: Readonly<ITodoItemProps>): boolean {
     return this.props.done !== nextProps.done;
   }

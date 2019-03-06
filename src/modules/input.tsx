@@ -1,6 +1,5 @@
 import { Record } from 'immutable';
 import { createAction, ActionType, getType } from 'typesafe-actions';
-import { handleActions } from 'redux-actions';
 
 // Action
 const SET_INPUT = 'input/SET_INPUT';
@@ -13,6 +12,8 @@ export type TInputState = Record<{
   readonly value: string
 }>;
 
+export type TInputActions = ActionType<typeof setInput>
+
 // Initial State
 const InputStateFactory = Record(
   { value: '' }
@@ -20,7 +21,11 @@ const InputStateFactory = Record(
 
 const initialState: TInputState = InputStateFactory();
 
-function inputReducer(state: TInputState = initialState, action: ActionType<typeof setInput>): TInputState {
+// Reducer
+function inputReducer(
+  state: TInputState = initialState,
+  action: TInputActions
+): TInputState {
   switch (action.type) {
     case getType(setInput):
       return state.set('value', action.payload.value);

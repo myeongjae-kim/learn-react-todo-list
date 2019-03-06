@@ -1,8 +1,7 @@
 import { Record, List } from 'immutable'
-import { handleActions } from 'redux-actions'
 import { createAction, ActionType, getType } from 'typesafe-actions'
 
-interface ITodoState {
+export interface ITodoState {
   readonly id: number,
   readonly text: string,
   readonly done: boolean
@@ -24,8 +23,9 @@ export const remove = createAction(REMOVE, action => {
   return (id: number) => action(id);
 });
 
-// State
+export type TTodoActions = ActionType<typeof insert | typeof toggle | typeof remove>;
 
+// State
 const TodoStateFactory = Record<ITodoState>({
   id: 0,
   text: '',
@@ -46,10 +46,11 @@ const initialState: TTodosState = List([
   })
 ])
 
+
 //Reducer
 function todosReducer(
   state: TTodosState = initialState,
-  action: ActionType<typeof insert | typeof toggle | typeof remove>
+  action: TTodoActions
 ): TTodosState {
   switch (action.type) {
     case getType(insert): {

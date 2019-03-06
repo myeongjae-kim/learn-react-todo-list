@@ -1,19 +1,14 @@
 import * as React from 'react';
 import TodoItem from '../TodoItem';
-
-export interface ITodoListData {
-  id: number,
-  text: string,
-  done: boolean
-}
+import { TTodosState } from '../../modules/todos';
 
 export interface ITodoListProps {
-  todos: Array<ITodoListData>
+  todos: TTodosState
   onToggle: (id: number) => void
   onRemove: (id: number) => void
 }
 
-class TodoList extends React.Component<ITodoListProps, {}> {
+class TodoList extends React.Component<ITodoListProps> {
   shouldComponentUpdate(nextProps: Readonly<ITodoListProps>): boolean {
     return this.props.todos !== nextProps.todos;
   }
@@ -23,12 +18,12 @@ class TodoList extends React.Component<ITodoListProps, {}> {
     const todoList = todos.map(
       todo => (
         <TodoItem
-          key={todo.id}
-          done={todo.done}
-          onToggle={() => onToggle(todo.id)}
-          onRemove={() => onRemove(todo.id)}
+          key={todo.get('id')}
+          done={todo.get('done')}
+          onToggle={() => onToggle(todo.get('id'))}
+          onRemove={() => onRemove(todo.get('id'))}
         >
-          {todo.text}
+          {todo.get('text')}
         </TodoItem>
       )
     )
